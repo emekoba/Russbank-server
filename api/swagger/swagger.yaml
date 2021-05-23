@@ -1,0 +1,18 @@
+swagger: 1.1.0
+info:
+  title: Russbank API
+  description: endpoint documentation for accessing and interacting with russbank-server
+  version: 1.0.0
+  contact:
+    name: Russell Jidechukwu Emekoba
+    url: www.emekoba.com
+# servers:
+#   - url: https://russbank-server.herokuapp.com/
+paths:
+  /auth:
+    # description: all endpoints reponsible for login,registration, and onboarding of users
+    get:
+      description: users being able to sign up for a free bank account
+      parameters: 
+        - in: query
+          name: 

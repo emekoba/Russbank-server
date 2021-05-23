@@ -1,6 +1,6 @@
 export interface IToken {
   bankAccount: number;
-  date: number;
+  time: number;
 }
 
 export enum CurrencyTypes {

@@ -21,7 +21,7 @@ export class BankController {
 
   @Middleware
   async userGuard(req, resp) {
-    await this.authService.userAuthorization(req, resp, { noTimeout: true });
+    await this.authService.userAuthorization(req, resp);
   }
 
   @Post('transfer')

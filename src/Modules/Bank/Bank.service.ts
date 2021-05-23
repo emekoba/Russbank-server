@@ -198,6 +198,13 @@ export default class BankService {
       );
     }
 
+    if (!foundAccount) {
+      throw new InternalServerErrorException(
+        null,
+        'this account does not exist',
+      );
+    }
+
     try {
       foundAccount.balance += amount;
 

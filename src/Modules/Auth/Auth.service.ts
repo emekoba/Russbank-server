@@ -37,6 +37,8 @@ export default class AuthService {
 
     const unTokenized: IToken = this.jwtService.decode(token) as IToken;
 
+    console.log(token, unTokenized);
+
     let bank;
 
     try {
@@ -54,12 +56,16 @@ export default class AuthService {
       }
     }
 
-    if (!options?.noTimeout) {
-      console.log(bank, unTokenized);
+    console.log(
+      new Date().getTime(),
+      bank.token,
+      new Date().getTime() - unTokenized.time <= jwt_expire_time * 1000,
+    );
 
+    if (!options?.noTimeout) {
       if (
         bank.token &&
-        new Date().getTime() - unTokenized.date <= jwt_expire_time * 1000
+        new Date().getTime() - unTokenized.time <= jwt_expire_time * 1000
       ) {
         bank.token = this.jwtService.sign({
           bankAccount: bank.accountNumber,
