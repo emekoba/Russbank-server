@@ -10,7 +10,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
-import { jwt_expire_time } from 'src/Helpers/constants';
+import { jwt_expire_time } from 'src/Helpers/Constants';
 import { IToken, UserRoles } from 'src/Interfaces/Globals';
 import { Bank } from '../../Models/Bank';
 
