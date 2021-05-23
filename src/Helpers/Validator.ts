@@ -1,4 +1,4 @@
-import { emailRegex } from './constants';
+import { emailRegex } from './Constants';
 
 interface IValidationOption {
   name: string;
