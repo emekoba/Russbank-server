@@ -21,12 +21,12 @@ export class AdminController {
 
   @Middleware
   async userGuard(req, resp) {
-    // await this.authService.userAuthorization(req, resp);
+    await this.authService.userAuthorization(req, resp);
   }
 
   @Middleware
   async adminGuard(req, resp) {
-    // await this.adminService.adminAuthorization(req, resp);
+    await this.adminService.adminAuthorization(req, resp);
   }
 
   @Get('all-users')
@@ -46,6 +46,7 @@ export class AdminController {
   }
 
   @Delete('delete-user')
+  @UseMiddleware('userGuard')
   @UseMiddleware('adminGuard')
   async deleteUser(
     @Req() req: Request,

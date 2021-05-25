@@ -12,17 +12,13 @@ export default class AdminService {
   constructor(@InjectModel('Bank') private readonly bankModel: Model<Bank>) {}
 
   async adminAuthorization(req, resp) {
-    let { bankAccount } = req.body;
-
-    // let bankAccount = '09299999999';
-
-    console.log(bankAccount);
+    const account_number = req.account_number;
 
     let isAdmin;
 
     try {
       isAdmin = await this.bankModel.findOne({
-        accountNumber: bankAccount,
+        accountNumber: account_number,
         'user.role': 'ADMIN',
       });
     } catch (e) {

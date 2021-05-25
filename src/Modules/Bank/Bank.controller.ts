@@ -26,26 +26,27 @@ export class BankController {
 
   @Post('transfer')
   @UseMiddleware('userGuard')
-  async transfer(
-    @Req() req: Request,
-    @Res({ passthrough: true }) resp: Response,
-  ) {
-    const { amount, recipient, sender } = req.body;
+  async transfer(@Req() req, @Res({ passthrough: true }) resp: Response) {
+    const reqBody = {
+      amount: req.body.amount,
+      recipient: req.body.recipient,
+      sender: req.account_number,
+    };
 
     const errorMsgs = validator([
       {
         name: 'amount',
-        value: +amount,
+        value: +reqBody.amount,
         options: { required: true, isNumber: true },
       },
       {
         name: 'recipient',
-        value: recipient,
+        value: reqBody.recipient,
         options: { required: true, isString: true },
       },
       {
         name: 'sender',
-        value: sender,
+        value: reqBody.sender,
         options: { required: true, isString: true },
       },
     ]);
@@ -54,10 +55,10 @@ export class BankController {
       throw new NotAcceptableException(null, errorMsgs?.[0].msg?.[0]);
     }
 
-    const res = await this.bankService.transfer(req.body);
+    const res = await this.bankService.transfer(reqBody);
 
     resp.json({
-      bank: res,
+      account: res,
       description: 'transfer successful',
       code: 0,
     });
@@ -65,21 +66,21 @@ export class BankController {
 
   @Post('withdraw')
   @UseMiddleware('userGuard')
-  async withdraw(
-    @Req() req: Request,
-    @Res({ passthrough: true }) resp: Response,
-  ) {
-    const { amount, account_number } = req.body;
+  async withdraw(@Req() req, @Res({ passthrough: true }) resp: Response) {
+    const reqBody = {
+      amount: req.body.amount,
+      account_number: req.account_number,
+    };
 
     const errorMsgs = validator([
       {
         name: 'amount',
-        value: +amount,
+        value: +reqBody.amount,
         options: { required: true, isNumber: true },
       },
       {
-        name: 'account_number',
-        value: account_number,
+        name: 'account number',
+        value: reqBody.account_number,
         options: { required: true, isString: true },
       },
     ]);
@@ -88,10 +89,10 @@ export class BankController {
       throw new NotAcceptableException(null, errorMsgs?.[0].msg?.[0]);
     }
 
-    const res = await this.bankService.withdraw(req.body);
+    const res = await this.bankService.withdraw(reqBody);
 
     resp.json({
-      bank: res,
+      account: res,
       description: 'withdrawal successful',
       code: 0,
     });
@@ -99,21 +100,23 @@ export class BankController {
 
   @Post('deposit')
   @UseMiddleware('userGuard')
-  async deposit(
-    @Req() req: Request,
-    @Res({ passthrough: true }) resp: Response,
-  ) {
-    const { amount, account_number } = req.body;
+  async deposit(@Req() req, @Res({ passthrough: true }) resp: Response) {
+    const reqBody = {
+      amount: req.body.amount,
+      account_number: req.account_number,
+    };
+
+    console.log(req.account_number);
 
     const errorMsgs = validator([
       {
         name: 'amount',
-        value: +amount,
+        value: +reqBody.amount,
         options: { required: true, isNumber: true },
       },
       {
-        name: 'account_number',
-        value: account_number,
+        name: 'account number',
+        value: reqBody.account_number,
         options: { required: true, isString: true },
       },
     ]);
@@ -122,10 +125,10 @@ export class BankController {
       throw new NotAcceptableException(null, errorMsgs?.[0].msg?.[0]);
     }
 
-    const res = await this.bankService.deposit(req.body);
+    const res = await this.bankService.deposit(reqBody);
 
     resp.json({
-      bank: res,
+      account: res,
       description: 'deposit successful',
       code: 0,
     });

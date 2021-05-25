@@ -208,6 +208,8 @@ export default class BankService {
     try {
       foundAccount.balance += amount;
 
+      console.log(foundAccount.balance, amount);
+
       await this.bankModel.updateOne(
         { accountNumber: foundAccount.accountNumber },
         {

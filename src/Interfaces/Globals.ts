@@ -1,5 +1,5 @@
 export interface IToken {
-  bankAccount: number;
+  accountNumber: number;
   time: number;
 }
 

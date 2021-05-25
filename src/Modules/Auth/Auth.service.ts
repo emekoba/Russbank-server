@@ -37,13 +37,11 @@ export default class AuthService {
 
     const unTokenized: IToken = this.jwtService.decode(token) as IToken;
 
-    console.log(token, unTokenized);
-
     let bank;
 
     try {
       bank = await this.bankModel.findOne({
-        accountNumber: unTokenized.bankAccount.toString(),
+        accountNumber: unTokenized.accountNumber.toString(),
       });
     } catch (e) {
       if (e.name === 'EntityNotFound') {
@@ -56,19 +54,13 @@ export default class AuthService {
       }
     }
 
-    console.log(
-      new Date().getTime(),
-      bank.token,
-      new Date().getTime() - unTokenized.time <= jwt_expire_time * 1000,
-    );
-
     if (!options?.noTimeout) {
       if (
         bank.token &&
         new Date().getTime() - unTokenized.time <= jwt_expire_time * 1000
       ) {
         bank.token = this.jwtService.sign({
-          bankAccount: bank.accountNumber,
+          accountNumber: bank.accountNumber,
           date: new Date().getTime(),
         });
 
@@ -78,7 +70,7 @@ export default class AuthService {
       }
     }
 
-    req.bankAccount = bank.accountNumber;
+    req.account_number = bank.accountNumber;
   }
 
   async signUp(signUpDto) {
@@ -170,7 +162,7 @@ export default class AuthService {
     }
 
     let token = await this.jwtService.signAsync({
-      bankAccount: foundAccount.accountNumber,
+      accountNumber: foundAccount.accountNumber,
       time: new Date().getTime(),
     });
 
@@ -181,6 +173,8 @@ export default class AuthService {
 
       return {
         account_number: foundAccount.accountNumber,
+        balance: foundAccount.balance,
+        userRole: foundAccount.user.role,
         owner: {
           first_name: foundAccount.user.firstName,
           last_name: foundAccount.user.lastName,
