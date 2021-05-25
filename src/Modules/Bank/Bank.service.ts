@@ -206,7 +206,7 @@ export default class BankService {
     }
 
     try {
-      foundAccount.balance += amount;
+      foundAccount.balance = parseInt(foundAccount.balance) + amount;
 
       console.log(foundAccount.balance, amount);
 
