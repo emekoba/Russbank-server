@@ -181,13 +181,11 @@ export default class AuthService {
 
       return {
         account_number: foundAccount.accountNumber,
-
         owner: {
           first_name: foundAccount.user.firstName,
           last_name: foundAccount.user.lastName,
           phone_number: foundAccount.user.accountNumber,
         },
-
         token: foundAccount.token,
       };
     } catch (e) {

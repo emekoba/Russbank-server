@@ -35,7 +35,7 @@ export class BankController {
     const errorMsgs = validator([
       {
         name: 'amount',
-        value: amount,
+        value: +amount,
         options: { required: true, isNumber: true },
       },
       {
@@ -74,7 +74,7 @@ export class BankController {
     const errorMsgs = validator([
       {
         name: 'amount',
-        value: amount,
+        value: +amount,
         options: { required: true, isNumber: true },
       },
       {
@@ -108,7 +108,7 @@ export class BankController {
     const errorMsgs = validator([
       {
         name: 'amount',
-        value: amount,
+        value: +amount,
         options: { required: true, isNumber: true },
       },
       {

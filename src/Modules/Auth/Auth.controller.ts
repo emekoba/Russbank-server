@@ -85,7 +85,7 @@ export class AuthController {
     const res = await this.authService.signUp(req.body);
 
     resp.json({
-      user: res,
+      account: res,
       description: 'success: user created',
       code: 0,
     });
@@ -124,7 +124,7 @@ export class AuthController {
     const res = await this.authService.signIn(req.body);
 
     resp.json({
-      user: res,
+      account: res,
       description: 'success: user logged in',
       code: 0,
     });
