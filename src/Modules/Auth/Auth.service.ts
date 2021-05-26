@@ -157,6 +157,10 @@ export default class AuthService {
       );
     }
 
+    if (!foundAccount) {
+      throw new NotAcceptableException(null, 'bank account does not exist');
+    }
+
     if (!(await bcrypt.compare(password, foundAccount.password))) {
       throw new InternalServerErrorException(null, 'incorrect password');
     }

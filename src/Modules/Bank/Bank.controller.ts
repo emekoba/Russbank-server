@@ -137,14 +137,14 @@ export class BankController {
   @Get('transactions')
   @UseMiddleware('userGuard')
   async getAllTransactions(
-    @Req() req: Request,
+    @Req() req,
     @Res({ passthrough: true }) resp: Response,
   ) {
-    const res = await this.bankService.getAllTransactions('08076607130');
+    const res = await this.bankService.getAllTransactions(req.account_number);
 
     resp.json({
       transactions: res,
-      description: 'deposit successful',
+      description: 'get transactions request successful',
       code: 0,
     });
   }

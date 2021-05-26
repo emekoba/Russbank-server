@@ -4,6 +4,7 @@ import {
   Delete,
   Req,
   Res,
+  Query,
   NotAcceptableException,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
@@ -48,15 +49,12 @@ export class AdminController {
   @Delete('delete-user')
   @UseMiddleware('userGuard')
   @UseMiddleware('adminGuard')
-  async deleteUser(
-    @Req() req: Request,
-    @Res({ passthrough: true }) resp: Response,
-  ) {
-    const { account_number } = req.body;
+  async deleteUser(@Req() req, @Res({ passthrough: true }) resp: Response) {
+    const { account_number } = req.query;
 
     const errorMsgs = validator([
       {
-        name: 'first name',
+        name: 'account number',
         value: account_number,
         options: { required: true, isString: true },
       },
