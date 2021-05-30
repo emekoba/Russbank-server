@@ -1,18 +1,476 @@
-swagger: 1.1.0
+openapi: 3.0.0
+
 info:
-  title: Russbank API
-  description: endpoint documentation for accessing and interacting with russbank-server
-  version: 1.0.0
+  description: 'endpoint documentation for accessing and interacting with russbank-server'
+
+  version: '1.0.0'
+
+  title: 'Russbank API'
+
   contact:
-    name: Russell Jidechukwu Emekoba
-    url: www.emekoba.com
-# servers:
-#   - url: https://russbank-server.herokuapp.com/
+    email: 'rjemekoba@gmail.com'
+    url: 'https://russbank-server.herokuapp.com/'
+
+components:
+  schemas:
+    signup_req:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: Russell
+
+        last_name:
+          type: string
+          example: Emekoba
+
+        phone_number:
+          type: string
+          example: 08076607130
+
+        email:
+          type: string
+          example: rjemekoba@gmail.com
+
+        address:
+          type: string
+          example: plot 11 area 3 garki, abuja
+
+        user_role:
+          type: string
+          example: ADMIN
+
+        password:
+          type: string
+          example: Password1$
+
+        confirm_password:
+          type: string
+          example: Password1$
+
+    signup_res:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          example: 08076607130
+        owner:
+          type: object
+          properties:
+            firstName:
+              type: string
+              example: Russell
+            lastName:
+              type: string
+              example: Emekoba
+            phoneNumber:
+              type: string
+              example: 090876607130
+            address:
+              type: string
+              example: plot 11 area 3 garki, abuja
+            email:
+              type: string
+              example: rjemekoba@gmail.com
+            role:
+              type: string
+              example: ADMIN
+
+    signin_req:
+      type: object
+      properties:
+        phone_number:
+          type: string
+          example: 08076607130
+        password:
+          type: string
+          example: Password1$
+
+    signin_res:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          example: 08076607130
+
+        balance:
+          type: integer
+          example: 100
+
+        userRole:
+          type: string
+          example: ADMIN
+
+        token:
+          type: string
+          example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50TnVtYmVyIjoiMDgwNzY2MDcxMzAiLCJ0aW1lIjoxNjIyMzg3NzE0NTE4LCJpYXQiOjE2MjIzODc3MTQsImV4cCI6MTYyMjM4ODQzNH0.v65koCTupERTlHY2vNyi0nEySbklyMQTQNoLg2Smjo0'
+
+        owner:
+          type: object
+          properties:
+            firstName:
+              type: string
+              example: Russell
+
+            lastName:
+              type: string
+              example: Emekoba
+
+    deposit_req:
+      type: object
+      properties:
+        amount:
+          type: integer
+          example: 100
+
+    deposit_res:
+      type: object
+      properties:
+        account_number:
+          type: string
+          example: 08076607130
+
+        balance:
+          type: integer
+          example: 200
+
+        summary:
+          type: object
+          properties:
+            amount:
+              type: integer
+              example: 100
+
+            type:
+              type: string
+              example: DEPOSIT
+
+            timestamp:
+              type: string
+              example: '2021-05-30T15:32:36.955Z'
+
+    withdraw_req:
+      type: object
+      properties:
+        amount:
+          type: integer
+          example: 100
+
+    withdraw_res:
+      type: object
+      properties:
+        account_number:
+          type: string
+          example: 08076607130
+
+        balance:
+          type: integer
+          example: 200
+
+        summary:
+          type: object
+          properties:
+            amount:
+              type: integer
+              example: 100
+
+            type:
+              type: string
+              example: WITHDRAW
+
+            timestamp:
+              type: string
+              example: '2021-05-30T15:32:36.955Z'
+
+    transfer_req:
+      type: object
+      properties:
+        recipient:
+          type: string
+          example: 08076607130
+
+        amount:
+          type: integer
+          example: 100
+
+    transfer_res:
+      type: object
+      properties:
+        account_number:
+          type: string
+          example: 08076607130
+
+        balance:
+          type: integer
+          example: 200
+
+        summary:
+          type: object
+          properties:
+            amount:
+              type: integer
+              example: 100
+
+            type:
+              type: string
+              example: TRANSFER
+
+            sender:
+              type: string
+              example: 08076607130
+
+            recipient:
+              type: string
+              example: 08076607130
+
+            timestamp:
+              type: string
+              example: '2021-05-30T15:32:36.955Z'
+
+    transactions_res:
+      type: object
+      properties:
+        transactions:
+          type: array
+          items:
+            properties:
+              _id:
+                type: string
+                example: 60b3b014f10fe90021e34910
+
+              amount:
+                type: string
+                example: 100
+
+              type:
+                type: string
+                example: DEPOSIT
+
+              updatedAt:
+                type: string
+                example: '2021-05-30T15:32:36.937Z'
+
+              createdAt:
+                type: string
+                example: '2021-05-30T15:32:36.937Z'
+
+    all_users_res:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            properties:
+              balance:
+                type: integer
+                example: 978
+              currency:
+                type: string
+                example: NGN
+              _id:
+                type: string
+                example: 60ad2901e39a49382c0ee40c
+              password:
+                type: string
+                example: Password1$
+              accountNumber:
+                type: string
+                example: 09076381763
+              createdAt:
+                type: string
+                example: '2021-05-25T16:42:41.325Z'
+              updatedAt:
+                type: string
+                example: '2021-05-26T15:23:21.021Z'
+              transactions:
+                type: array
+                items:
+                  properties:
+                    _id:
+                      type: string
+                      example: 60b3b014f10fe90021e34910
+
+                    amount:
+                      type: string
+                      example: 100
+
+                    type:
+                      type: string
+                      example: DEPOSIT
+
+                    updatedAt:
+                      type: string
+                      example: '2021-05-30T15:32:36.937Z'
+
+                    createdAt:
+                      type: string
+                      example: '2021-05-30T15:32:36.937Z'
+              user:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 60ad2901e39a49382c0ee40c
+                  accountNumber:
+                    type: string
+                    example: 08076607130
+                  firstName:
+                    type: string
+                    example: Russell
+                  lastName:
+                    type: string
+                    example: Emekoba
+                  phoneNumber:
+                    type: string
+                    example: 090876607130
+                  address:
+                    type: string
+                    example: plot 11 area 3 garki, abuja
+                  email:
+                    type: string
+                    example: rjemekoba@gmail.com
+                  role:
+                    type: string
+                    example: ADMIN
+                  createdAt:
+                    type: string
+                    example: '2021-05-25T16:42:41.325Z'
+                  updatedAt:
+                    type: string
+                    example: '2021-05-26T15:23:21.021Z'
+
 paths:
-  /auth:
-    # description: all endpoints reponsible for login,registration, and onboarding of users
+  /auth/signup:
+    post:
+      description: 'sign up to create a bank account'
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signup_req'
+      responses:
+        '200':
+          description: 'success: user created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signup_res'
+
+  /auth/signin:
+    post:
+      description: 'sign into bank account'
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/signin_req'
+      responses:
+        '200':
+          description: 'success: user logged in'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/signin_res'
+
+  /bank/deposit:
+    post:
+      description: 'deposit money into bank account'
+      tags:
+        - Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/deposit_req'
+      responses:
+        '200':
+          description: 'deposit successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/deposit_res'
+
+  /bank/withdraw:
+    post:
+      description: 'withdraw money from bank account'
+      tags:
+        - Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/withdraw_req'
+      responses:
+        '200':
+          description: 'deposit successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/withdraw_res'
+
+  /bank/transfer:
+    post:
+      description: 'transfer money to another bank account'
+      tags:
+        - Bank
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/transfer_req'
+      responses:
+        '200':
+          description: 'deposit successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transfer_res'
+
+  /bank/transactions:
     get:
-      description: users being able to sign up for a free bank account
-      parameters: 
-        - in: query
-          name: 
+      description: 'get history of all transactions'
+      tags:
+        - Bank
+      responses:
+        '200':
+          description: 'deposit successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/transactions_res'
+
+  /admin/all-users:
+    get:
+      description: 'get all users on the platform'
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: 'deposit successful'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/all_users_res'
+
+        '500':
+          description: 'operation restricted to admins only'
+
+  /admin/delete-user:
+    delete:
+      description: 'get all users on the platform'
+      tags:
+        - Admin
+      responses:
+        '200':
+          description: 'success: user successfully deleted'
+
+        '500':
+          description: 'operation restricted to admins only'
+
+externalDocs:
+  description: 'Find out more about Russbank'
+  url: 'https://app.swaggerhub.com/apis/emekoba/Russbank/v0.1'

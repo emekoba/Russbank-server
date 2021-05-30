@@ -65,6 +65,7 @@ export default class BankService {
             transactions: {
               amount: amount,
               type: TransactionTypes.TRANSFER,
+              sender: senderBank.accountNumber,
               recipient: recipientBank.accountNumber,
             },
           },
@@ -79,6 +80,7 @@ export default class BankService {
               amount: amount,
               type: TransactionTypes.DEPOSIT,
               sender: senderBank.accountNumber,
+              recipient: recipientBank.accountNumber,
             },
           },
         },
